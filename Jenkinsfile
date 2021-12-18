@@ -1,11 +1,10 @@
 pipeline {
-    agent any
-
-    stages {
-	stage('build') {
-		sh('docker build .')
-	}
+     agent any
+     stages {
+        stage("Build") {
+            steps {
+		sh("docker build .")
+            }
+        }
     }
 }
-	
-
