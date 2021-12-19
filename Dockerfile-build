@@ -1,5 +1,5 @@
 # pull official base image
-FROM node:16.13 as base_build_for_app
+FROM node:16.13 as my_node_app
 
 # A directory within the virtualized Docker environment
 # Becomes more relevant when using Docker Compose later
@@ -9,7 +9,7 @@ WORKDIR /usr/src/app
 COPY . ./
 
 # Installs all node packages
-RUN npm install
+RUN npm install --silent
 
 # Installs all node packages
 RUN npm run build

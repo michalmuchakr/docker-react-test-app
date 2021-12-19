@@ -1,16 +1,11 @@
-version: '3.7'
+version: '2.0'
 
 services:
-
-  frontend:
-    container_name: frontend
-    build: ./frontend
-    volumes:
-      - './:/app'
-      - '/app/node_modules'
-    ports:
-      - 3000:3000
-    stdin_open: true
-    environment:
-      - CHOKIDAR_USEPOLLING=true
-    command: npm start
+  builder:
+    build:
+      dockerfile: Dockerfile-build
+      context: .
+  tester:
+    build:
+      dockerfile: Dockerfile-test
+      context: .
