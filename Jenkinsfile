@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    docker {
+        image 'node:16.13.1-alpine'
+    }
 
     stages {
         stage('build') {
@@ -15,16 +17,20 @@ pipeline {
     }
     post {
         always {
-            emailext body: 'A Test EMail',
-            recipientProviders: [
-                [
-                    $class: 'DevelopersRecipientProvider'
-                ],
-            [
-                $class: 'RequesterRecipientProvider'
-                ]
-            ],
-            subject: 'Test'
+            echo 'One way or another, I have finished'
+            deleteDir() /* clean up our workspace */
+        }
+        success {
+            echo 'Build finish successfully!'
+        }
+        unstable {
+            echo 'Build finish unstable!'
+        }
+        failure {
+            echo 'Build failed sad-frog.jpg!'
+        }
+        changed {
+            echo 'Things were different before...'
         }
     }
 }
