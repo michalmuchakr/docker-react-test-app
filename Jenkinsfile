@@ -40,7 +40,7 @@ pipeline {
     }
 }
 
-def mailSender(String buildSatus) {
+def mailSender(String buildStatus) {
     def subject = "${buildStatus}: of build [${env.BUILD_NUMBER}]'"
     def summary = "Link to build: (${env.BUILD_URL})"
     
