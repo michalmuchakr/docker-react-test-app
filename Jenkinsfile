@@ -14,7 +14,6 @@ pipeline {
         }
         stage('test') {
             steps {
-                
                 script{
                     try {
                         sh 'docker-compose build --no-cache tester'
