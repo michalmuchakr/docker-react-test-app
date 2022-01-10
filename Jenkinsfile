@@ -47,7 +47,7 @@ def mailSender(String buildStatus) {
     emailext (
         mimeType: 'text/html',
         subject: "${buildStatus}: of build [${env.BUILD_NUMBER}]'",
-        body: "Link to build: (${env.BUILD_URL})"
+        body: "Link to build: (${env.BUILD_URL})",
         to: 'michal.mucha.kr@gmail.com'
     )
 }
