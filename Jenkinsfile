@@ -32,6 +32,7 @@ pipeline {
         stage('deploy') {
             steps {
                 script {
+                    sh 'docker image -a'
                     docker.withRegistry( '', registryCredential ) {
                         docker.image('builder').push()
                     }
