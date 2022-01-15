@@ -31,7 +31,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry( '', registryCredential ) {
-                        docker.image('app-prod').push()
+                        sh 'docker push generalcube/mm301180_dev_ops:rc01'
                     }
                 }
             }
