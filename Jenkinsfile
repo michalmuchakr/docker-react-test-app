@@ -1,5 +1,11 @@
 pipeline {
     agent any
+    environment {
+        registry = "generalcube/mm301180_dev_ops"
+        registryCredential = 'generalcube'
+        dockerImage = ''
+    }
+
     stages {
         stage('build') {
             steps {
@@ -14,12 +20,20 @@ pipeline {
         }
         stage('test') {
             steps {
-
                 script{
                     try {
                         sh 'docker-compose build --no-cache tester'
                     } catch(e) {
                         throw e
+                    }
+                }
+            }
+        }
+        stage('deploy') {
+            steps {
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push()
                     }
                 }
             }
@@ -47,7 +61,7 @@ def mailSender(String buildStatus) {
     emailext (
         mimeType: 'text/html',
         subject: "${buildStatus}: of build [${env.BUILD_NUMBER}]'",
-        body: "Link to build: (${env.BUILD_URL})",
+        body: "Link to build: (${env.BUILD_URL})"
         to: 'michal.mucha.kr@gmail.com'
     )
 }
