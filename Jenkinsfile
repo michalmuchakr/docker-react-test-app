@@ -3,9 +3,7 @@ pipeline {
     environment {
         registry = "generalcube/mm301180_dev_ops"
         registryCredential = 'generalcube'
-        dockerImage = ''
     }
-
     stages {
         stage('build') {
             steps {
@@ -32,9 +30,8 @@ pipeline {
         stage('deploy') {
             steps {
                 script {
-                    sh 'docker images -a'
                     docker.withRegistry( '', registryCredential ) {
-                        docker.image('builder').push()
+                        docker.image('app-prod').push()
                     }
                 }
             }
